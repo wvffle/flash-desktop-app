@@ -6,36 +6,29 @@
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem, RunEvent};
 use std::process::{Command, Stdio};
-use nix::sys::wait::wait;
-use nix::unistd::ForkResult::{Child, Parent};
-use nix::unistd::{fork, getpid, getppid};
 
 fn main() {
-    let pid = fork();
-    match pid.expect("Fork Failed: Unable to create child process!") {
-        Child => {
-            if cfg!(windows) {
-              match Command::new("posnet-server.exe")
-                  .stdin(Stdio::piped())
-                  .stderr(Stdio::piped())
-                  .stdout(Stdio::piped())
-                  .spawn() {
-                      Ok(output) => {
-                          println!("{:#?}", output);
-                          match output.wait_with_output() {
-                              Ok(wait_out) => println!("{:#?}", wait_out),
-                              Err(err) => println!("{:#?}", err),
-                          }
-                      },
-                      Err(err) => println!("{:#?}", err),
-              }
-            }
-        },
-        Parent { child } => {
-            app_window()
-            wait()
+    std::thread::spawn(|| {
+        if cfg!(windows) {
+          match Command::new("posnet-server.exe")
+              .stdin(Stdio::piped())
+              .stderr(Stdio::piped())
+              .stdout(Stdio::piped())
+              .spawn() {
+                  Ok(output) => {
+                      println!("{:#?}", output);
+                      match output.wait_with_output() {
+                          Ok(wait_out) => println!("{:#?}", wait_out),
+                          Err(err) => println!("{:#?}", err),
+                      }
+                  },
+                  Err(err) => println!("{:#?}", err),
+          }
         }
-    }
+    });
+
+    app_window();
+    std::thread::park();
 }
 
 fn app_window() {
