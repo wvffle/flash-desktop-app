@@ -71,6 +71,7 @@ fn app_window() {
     RunEvent::CloseRequested { label, api, .. } => {
         let window = app_handle.get_window(&label).unwrap();
         api.prevent_close();
+        window.unmaximize().unwrap();
         window.minimize().unwrap();
     }
 
