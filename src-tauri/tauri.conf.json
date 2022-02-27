@@ -62,6 +62,7 @@
       }
     ],
     "security": {
+      "useHttp": true,
       "csp": null
     },
     "systemTray": {
