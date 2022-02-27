@@ -42,6 +42,23 @@ fn main() {
     .build(tauri::generate_context!())
     .expect("error while running tauri application");
 
+    if cfg!(windows) {
+      match Command::new("posnet-server.exe")
+          .stdin(Stdio::piped())
+          .stderr(Stdio::piped())
+          .stdout(Stdio::piped())
+          .spawn() {
+              Ok(output) => {
+                  println!("{:#?}", output);
+                  match output.wait_with_output() {
+                      Ok(wait_out) => println!("{:#?}", wait_out),
+                      Err(err) => println!("{:#?}", err),
+                  }
+              },
+              Err(err) => println!("{:#?}", err),
+      }
+  }
+
   app.run(|app_handle, e| match e {
     RunEvent::CloseRequested { label, api, .. } => {
         let window = app_handle.get_window(&label).unwrap();
