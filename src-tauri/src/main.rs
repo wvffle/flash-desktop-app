@@ -69,10 +69,7 @@ fn app_window() {
 
   app.run(|app_handle, e| match e {
     RunEvent::CloseRequested { label, api, .. } => {
-        let window = app_handle.get_window(&label).unwrap();
         api.prevent_close();
-        window.unmaximize().unwrap();
-        window.minimize().unwrap();
     }
 
     RunEvent::ExitRequested { api, .. } => {
