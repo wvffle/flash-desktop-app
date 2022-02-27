@@ -5,6 +5,7 @@
 
 use tauri::Manager;
 use tauri::{CustomMenuItem, SystemTray, SystemTrayEvent, SystemTrayMenu, SystemTrayMenuItem, RunEvent};
+use std::process::{Command, Stdio};
 
 fn main() {
   let quit = CustomMenuItem::new("quit".to_string(), "Wyjdź");
