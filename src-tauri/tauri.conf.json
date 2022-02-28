@@ -1,7 +1,7 @@
 {
   "package": {
     "productName": "flash-desktop-app",
-    "version": "1.5.2"
+    "version": "1.5.3"
   },
   "build": {
     "distDir": "../dist",
@@ -32,7 +32,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "WEBHOOK_URL?version={{current_version}}"
+        "https://webhook.example.com?version={{current_version}}"
       ],
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDRFRDc2MzNGOEQwNjVENDkKUldSSlhRYU5QMlBYVHFReXFlRHFiWFNVZXhiU0VMVEVUUGZCY3F5b1NHSjZEa3V3YW53bHRtUE4K"
