@@ -21,7 +21,9 @@ jobs:
         with:
           toolchain: stable
       - name: install app dependencies and build it
-        run: yarn
+        run: yarn && yarn build
+        env:
+          VITE_BACKEND_URL: ${{ secrets.BACKEND_URL }}
       - uses: jdukewich/tauri-action@fix-windows-bundling
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
