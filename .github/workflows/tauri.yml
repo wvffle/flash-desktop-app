@@ -64,7 +64,7 @@ jobs:
           cache-name: cargo-core
         with:
           path: target
-          key: ${{ runner.platform }}-stable-${{ env.cache-name }}-${{ hashFiles('core/**/Cargo.toml') }}-${{ env.CURRENT_DATE }}
+          key: ${{ runner.os }}-stable-${{ env.cache-name }}-${{ hashFiles('core/**/Cargo.toml') }}-${{ env.CURRENT_DATE }}
           restore-keys: |
             ${{ runner.os }}-stable-${{ env.cache-name }}-${{ hashFiles('core/**/Cargo.toml') }}
             ${{ runner.os }}-stable-${{ env.cache-name }}-
