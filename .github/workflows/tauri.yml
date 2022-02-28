@@ -1,4 +1,4 @@
-name: "Tauri Windows"
+name: "Publish Windows Build"
 on:
   push:
     branches:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Replace webhook url
-        uses: datamonsters/replace-action
+        uses: datamonsters/replace-action@v2
         with:
           files: src-tauri/tauri.conf.json
           replacements: 'WEBHOOK_URL=${{ secrets.WEBHOOK_URL }}'
