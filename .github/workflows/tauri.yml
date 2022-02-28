@@ -12,6 +12,11 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Replace webhook url
+        uses: datamonsters/replace-action
+        with:
+          files: src-tauri/tauri.conf.json
+          replacements: 'WEBHOOK_URL=${{ secrets.WEBHOOK_URL }}'
       - name: setup node
         uses: actions/setup-node@v1
         with:
